@@ -1,0 +1,17 @@
+<section>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="name" class="border">
+    <input type="email" formControlName="email" class="border">
+    <button type="submit" [disabled]="!loginForm.valid">Add user</button>
+  </form>
+  <div>
+    @for (user of users(); track user.id) {
+      <app-user-card [user]="user" (deleted)="deleteUser($event)"/>
+    } @empty {
+      <p>No users found!</p>
+    }
+  </div>
+  @if (usersLength()) {
+    <p>Quantity user: {{usersLength()}}</p>
+  }
+</section>
