@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { User } from '../user';
 import { UserCard } from '../user-card/user-card';
+import { UserService } from '../services/user-service';
 
 @Component({
   imports: [FormsModule, ReactiveFormsModule, UserCard],
@@ -15,7 +15,7 @@ import { UserCard } from '../user-card/user-card';
   templateUrl: './user-list.html',
 })
 export class UserList {
-  users = signal<User[]>([]);
+  userService = inject(UserService);
 
   loginForm = new FormGroup({
     name: new FormControl('', { nonNullable: true }),
@@ -26,16 +26,8 @@ export class UserList {
   });
 
   onSubmit() {
-    this.addUser(this.loginForm.getRawValue());
+    this.userService.addUser(this.loginForm.getRawValue());
   }
 
-  usersLength = computed(() => this.users().length);
-
-  addUser(user: Omit<User, 'id'>) {
-    this.users.update((current) => [...current, { ...user, id: crypto.randomUUID() }]);
-  }
-
-  deleteUser(id: string) {
-    this.users.update((user) => user.filter((u) => u.id !== id));
-  }
+  usersLength = computed(() => this.userService.users().length);
 }
