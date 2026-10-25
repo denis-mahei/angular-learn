@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { finalize, map } from 'rxjs';
 import { inject, Service, signal } from '@angular/core';
 import { Word } from '../word';
 import { Todo } from '../todo';
@@ -7,20 +8,32 @@ import { Todo } from '../todo';
 export class WordService {
   private http = inject(HttpClient);
   words = signal<Word[]>([]);
+  isLoading = signal<boolean>(false);
 
   baseUrl = 'https://jsonplaceholder.typicode.com';
 
   loadWords() {
-    this.http.get<Todo[]>(`${this.baseUrl}/todos?_limit=5`).subscribe((res) => {
-      const newTodo = res.map((todo) => {
-        return {
-          id: String(todo.id),
-          term: todo.title,
-          translation: '',
-        };
+    this.isLoading.set(true);
+    this.http
+      .get<Todo[]>(`${this.baseUrl}/todos?_limit=5`)
+      .pipe(
+        map((dtos) =>
+          dtos.map((d) => ({
+            id: String(d.id),
+            term: d.title,
+            translation: '',
+          })),
+        ),
+        finalize(() => this.isLoading.set(false)),
+      )
+      .subscribe({
+        next: (words) => {
+          this.words.set(words);
+        },
+        error: (err) => {
+          console.error('Catch: ', err.message);
+        },
       });
-        this.words.set(newTodo);
-    });
   }
 
   addWord(word: Omit<Word, 'id'>) {

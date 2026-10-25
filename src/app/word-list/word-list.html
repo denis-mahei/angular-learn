@@ -12,6 +12,9 @@
     <p>No words yet</p>
   }
   <div>
+    @if (wordService.isLoading()){
+      <p>Loading...</p>
+    }
     <button type="button" (click)="wordService.loadWords()">Load ToDo's</button>
   </div>
 </section>
