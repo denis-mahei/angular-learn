@@ -1,0 +1,17 @@
+<section>
+  <form [formGroup]="wordControl" (ngSubmit)="onSubmit()">
+    <label for="term">Term</label>
+    <input type="text" id="term" formControlName="term">
+    <label for="translation">Translation</label>
+    <input type="text" id="translation" formControlName="translation">
+    <button type="submit" [disabled]="!wordControl.valid">Add</button>
+  </form>
+  @for (word of wordService.words(); track word.id) {
+    <div>
+      <p>{{ word.term }}</p>
+      <p>{{ word.translation }}</p>
+    </div>
+  } @empty {
+    <p>No words yet</p>
+  }
+</section>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserList } from './user-list/user-list';
+import { WordList } from './word-list/word-list';
 
 @Component({
-  imports: [RouterOutlet, FormsModule, ReactiveFormsModule, UserList],
+  imports: [RouterOutlet, WordList],
   selector: 'app-root',
   templateUrl: './app.html',
 })
