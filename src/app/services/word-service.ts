@@ -9,11 +9,13 @@ export class WordService {
   private http = inject(HttpClient);
   words = signal<Word[]>([]);
   isLoading = signal<boolean>(false);
+  errorMsg = signal<string | null>(null);
 
   baseUrl = 'https://jsonplaceholder.typicode.com';
 
   loadWords() {
     this.isLoading.set(true);
+    this.errorMsg.set(null);
     this.http
       .get<Todo[]>(`${this.baseUrl}/todos?_limit=5`)
       .pipe(
@@ -27,13 +29,10 @@ export class WordService {
         finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
-        next: (words) => {
-          this.words.set(words);
-        },
-        error: (err) => {
-          console.error('Catch: ', err.message);
-        },
+        next: (words) => this.words.set(words),
+        error: (err) => this.errorMsg.set(err.message),
       });
+
   }
 
   addWord(word: Omit<Word, 'id'>) {

@@ -7,13 +7,16 @@
     <button type="submit" [disabled]="!wordControl.valid">Add</button>
   </form>
   @for (word of wordService.words(); track word.id) {
-    <app-word-card [word]="word" (deletedWord)="wordService.deleteWord($event)"/>
+    <app-word-card [word]="word" (deletedWord)="wordService.deleteWord($event)" />
   } @empty {
     <p>No words yet</p>
   }
   <div>
-    @if (wordService.isLoading()){
+    @if (wordService.isLoading()) {
       <p>Loading...</p>
+    }
+    @if (wordService.errorMsg()) {
+      <p>{{ wordService.errorMsg() }}</p>
     }
     <button type="button" (click)="wordService.loadWords()">Load ToDo's</button>
   </div>
