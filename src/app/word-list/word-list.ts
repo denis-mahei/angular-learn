@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { WordService } from '../services/word-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Word } from '../word';
+import { WordCard } from '../word-card/word-card';
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, WordCard],
   selector: 'app-word-list',
   templateUrl: './word-list.html',
 })
@@ -17,6 +17,6 @@ export class WordList {
   });
 
   onSubmit() {
-
+    this.wordService.addWord(this.wordControl.getRawValue());
   }
 }

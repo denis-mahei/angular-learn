@@ -1,1 +1,5 @@
-<p>word-card works!</p>
+<div>
+  <p>Word: {{ word().term }}</p>
+  <p>Translation: {{ word().translation }}</p>
+  <button type="button" (click)="onDelete()">delete</button>
+</div>

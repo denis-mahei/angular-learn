@@ -7,10 +7,7 @@
     <button type="submit" [disabled]="!wordControl.valid">Add</button>
   </form>
   @for (word of wordService.words(); track word.id) {
-    <div>
-      <p>{{ word.term }}</p>
-      <p>{{ word.translation }}</p>
-    </div>
+    <app-word-card [word]="word" (deletedWord)="wordService.deleteWord($event)"/>
   } @empty {
     <p>No words yet</p>
   }

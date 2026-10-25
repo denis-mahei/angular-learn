@@ -7,5 +7,9 @@ export class WordService {
 
   addWord(word: Omit<Word, 'id'>) {
     this.words.update((w) => [...w, { ...word, id: crypto.randomUUID() }]);
-  };
+  }
+
+  deleteWord(id: string) {
+    this.words.update((words) => words.filter((w) => w.id !== id));
+  }
 }
