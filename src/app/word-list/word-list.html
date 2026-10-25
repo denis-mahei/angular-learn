@@ -20,4 +20,14 @@
     }
     <button type="button" (click)="wordService.loadWords()">Load ToDo's</button>
   </div>
+    @if (wordService.todosLoading()) {
+      <p class="text-red-500">Loading...</p>
+    }
+  @for (todo of wordService.todosVal(); track todo.id) {
+  <div>
+    <p>{{todo.title}}</p>
+    <p>{{todo.completed}}</p>
+  </div>
+  }
+
 </section>
