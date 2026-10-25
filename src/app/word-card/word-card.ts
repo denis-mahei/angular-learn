@@ -12,6 +12,6 @@ export class WordCard {
   deletedWord = output<string>();
 
   onDelete() {
-    this.deletedWord.emit(this.word().id)
-  };
+    this.deletedWord.emit(this.word().id);
+  }
 }

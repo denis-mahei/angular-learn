@@ -1,8 +1,10 @@
-import { Service, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Service, signal } from '@angular/core';
 import { Word } from '../word';
 
 @Service()
 export class WordService {
+  private http = inject(HttpClient);
   words = signal<Word[]>([]);
 
   addWord(word: Omit<Word, 'id'>) {
@@ -12,4 +14,5 @@ export class WordService {
   deleteWord(id: string) {
     this.words.update((words) => words.filter((w) => w.id !== id));
   }
+  
 }
