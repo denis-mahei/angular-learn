@@ -1,4 +1,9 @@
 <section>
+  <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+    <label for="text">Title: </label>
+    <input type="text" id="text" formControlName="title" class="border rounded-2xl bg-purple-200 p-1.5">
+    <button type="submit" [disabled]="!todoForm.valid">Create ToDo</button>
+  </form>
   @if (todoService.todoLoading()) {
     <p class="text-4xl">Loading...</p>
   }
