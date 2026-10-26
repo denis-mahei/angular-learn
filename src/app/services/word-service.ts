@@ -15,7 +15,6 @@ export class WordService {
   todosResource = httpResource<Todo[]>(() => ({
     url: `${baseUrl}/todos`,
     params: {
-      page: 1,
       _limit: 5,
     },
   }),{defaultValue: []});
