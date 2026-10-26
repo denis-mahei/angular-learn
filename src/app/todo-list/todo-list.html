@@ -1,0 +1,13 @@
+<section>
+  @if (todoService.todoLoading()) {
+    <p class="text-4xl">Loading...</p>
+  }
+  @for (todos of todoService.todosValue(); track todos.id) {
+    <app-todo-item [todo]="todos"></app-todo-item>
+  }
+  <p>status: {{ todoService.todoStatus() }}</p>
+  <div class="flex gap-2">
+    <button type="button" class="border rounded-2xl py-1 px-2 bg-pink-200" (click)="todoService.changeLimit(5)">limit = 5</button>
+    <button type="button" class="border rounded-2xl py-1 px-2 bg-pink-200" (click)="todoService.changeLimit(20)">limit = 20</button>
+  </div>
+</section>

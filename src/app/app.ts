@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WordList } from './word-list/word-list';
+import { TodoList } from './todo-list/todo-list';
+
 
 @Component({
-  imports: [RouterOutlet, WordList],
+  imports: [RouterOutlet, TodoList],
   selector: 'app-root',
   templateUrl: './app.html',
 })
