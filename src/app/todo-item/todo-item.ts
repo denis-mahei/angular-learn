@@ -8,10 +8,15 @@ import { Todo } from '../todo';
 })
 export class TodoItem {
   todo = input.required<Todo>();
-  deleted = output<number>()
+  deleted = output<number>();
+  updated = output<Omit<Todo, 'title'>>();
 
   onDelete() {
-    console.log('deleted', this.todo().id);
-    this.deleted.emit(this.todo().id)
+    this.deleted.emit(this.todo().id);
+  }
+  onUpdate() {
+    const id = this.todo().id;
+    const completed = !this.todo().completed;
+    this.updated.emit({ id, completed });
   }
 }
