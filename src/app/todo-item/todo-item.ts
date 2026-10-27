@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Todo } from '../todo';
 
 @Component({
@@ -8,4 +8,10 @@ import { Todo } from '../todo';
 })
 export class TodoItem {
   todo = input.required<Todo>();
+  deleted = output<number>()
+
+  onDelete() {
+    console.log('deleted', this.todo().id);
+    this.deleted.emit(this.todo().id)
+  }
 }

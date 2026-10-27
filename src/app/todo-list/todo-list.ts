@@ -18,4 +18,5 @@ export class TodoList {
   onSubmit() {
     this.todoService.addTodo({completed: false,title:this.todoForm.getRawValue().title})
   }
+
 }

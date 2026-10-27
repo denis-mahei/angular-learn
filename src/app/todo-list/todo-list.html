@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <form class="mb-2 text-center border-b pb-2" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
     <label for="text">Title: </label>
     <input type="text" id="text" formControlName="title" class="border rounded-2xl bg-purple-200 p-1.5">
     <button type="submit" [disabled]="!todoForm.valid">Create ToDo</button>
@@ -7,9 +7,10 @@
   @if (todoService.todoLoading()) {
     <p class="text-4xl">Loading...</p>
   }
-  @for (todos of todoService.todosValue(); track todos.id) {
-    <app-todo-item [todo]="todos"></app-todo-item>
-  }
+  <div class="flex flex-col gap-2 bg-pink-100 p-2 rounded-2xl">
+    @for (todos of todoService.todosValue(); track todos.id) {
+    <app-todo-item [todo]="todos" (deleted)="todoService.deleteTodo($event)"></app-todo-item>
+  }</div>
   <p>status: {{ todoService.todoStatus() }}</p>
   <div class="flex gap-2">
     <button type="button" class="border rounded-2xl py-1 px-2 bg-pink-200" (click)="todoService.changeLimit(5)">limit = 5</button>

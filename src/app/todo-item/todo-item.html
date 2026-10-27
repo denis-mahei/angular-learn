@@ -1,3 +1,4 @@
-<div>
+<div class="flex gap-1.5 items-center justify-between">
   <p [class]="[todo().completed ? 'line-through' : 'none']">Title: {{todo().title}}</p>
+  <button type="button" class="bg-red-400 px-2 rounded-lg" (click)="onDelete()">delete</button>
 </div>
